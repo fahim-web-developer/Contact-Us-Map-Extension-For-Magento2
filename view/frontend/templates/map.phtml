@@ -1,0 +1,21 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$conf = $objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('contact/map/text');
+$conf = $objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('contact/map/latitude');
+$conf = $objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('contact/map/longitude');
+?>
+
+<?php if ($block->isEnabled()): ?>
+<div id="contact-map" class="google-map" data-marker="<?= $block->escapeHtml($block->getMarkerPosition()) ?>"></div>
+<script type="text/javascript">
+    require(
+        ['jquery','Fahim_ContactMap/js/map'],
+        function($, map){
+            map.init({
+                zoom: <?= $block->escapeHtml($block->getZoom()) ?>,
+                key: '<?= $block->escapeHtml($block->getApiKey()) ?>',
+                locale: '<?= $block->escapeHtml($block->getLocale()) ?>'
+            });
+        });
+</script>
+<?php endif ?>
